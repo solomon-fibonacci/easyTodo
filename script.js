@@ -17,19 +17,18 @@ function loadStoredList(todoList) {
 
 function appendTodo(todoText, todoList) {
 	//take what is in the input
-	var itemMarkup = `
-	<li>
-		<div class="listItemDiv">
-			<div class="todoItemCheckbox">
-				<input type="checkbox" name="todoItem" value="${ todoText.val() }" class="todoItem">
-			</div>
-			<div class="todoItemText">${ todoText.val() }</div>
-			<div class="delDiv">
-				<button class="delButton"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>
-			</div>
-		</div>
-	</li>
-	`;
+	var itemMarkup = " " + 
+		"<li>" +
+			'<div class="listItemDiv">' +
+				'<div class="todoItemCheckbox">' +
+					'<input type="checkbox" name="todoItem" value="' + todoText.val() + '" class="todoItem">' + 
+				'</div>' + 
+				'<div class="todoItemText">' + todoText.val() + '</div>' +
+				'<div class="delDiv">' +
+					'<button class="delButton"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>' +
+				'</div>' +
+			'</div>' +
+		'</li>';
 	//add it to the to do list
 	todoList.children("ul").append(itemMarkup);
 	//reset the input

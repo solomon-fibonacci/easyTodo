@@ -6,9 +6,9 @@ div.done {
 #container {
 	background-color: #f5f5f5;
 	font-family: 'Dosis', sans-serif;
-	max-width: 660px;
+	max-width: 680px;
 	margin: 0 auto;
-	padding: 1%;
+	padding-bottom: 10px;
 
 }
 
@@ -16,6 +16,8 @@ h1 {
 	text-align: center;
 	color: #fefefe;
 	background-color: #3a3a3a;
+	margin-bottom: 3%;
+	padding: 3%;
 }
 
 #inputDiv {
@@ -23,7 +25,7 @@ h1 {
 }
 
 #listDiv {
-	font-size: 1em;
+	font-size: 17px;
 	padding-right: 20px;
 }
 
@@ -36,6 +38,7 @@ button {
 
 #listDiv ul {
 	list-style: none;
+	padding-left: 5px;
 }
 
 #listDiv li {

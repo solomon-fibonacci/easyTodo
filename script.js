@@ -25,7 +25,7 @@ function appendTodo(todoText, todoList) {
 			</div>
 			<div class="todoItemText">${ todoText.val() }</div>
 			<div class="delDiv">
-				<button class="delButton">del</button></span>
+				<button class="delButton"><i class="fa fa-trash" aria-hidden="true"></i></button>
 			</div>
 		</div>
 	</li>

@@ -17,7 +17,7 @@ function loadStoredList(todoList) {
 
 function appendTodo(todoText, todoList) {
 	//take what is in the input
-	let itemMarkup = `
+	var itemMarkup = `
 	<li>
 		<div class="listItemDiv">
 			<div class="todoItemCheckbox">

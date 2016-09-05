@@ -1,3 +1,57 @@
-span.done {
+div.done {
 	text-decoration: line-through;
+	color: #717171;
+}
+
+#container {
+	background-color: #f5f5f5;
+	font-family: 'Dosis', sans-serif;
+	max-width: 660px;
+	margin: 0 auto;
+	padding: 1%;
+
+}
+
+h1 {
+	text-align: center;
+}
+
+#inputDiv {
+	text-align: center;
+}
+
+#listDiv {
+	font-size: 1em;
+	padding-right: 20px;
+}
+
+button {
+	background-color: #4f4f4f;
+	border: none;
+	border-radius: 5px;
+	color: #f9f9f9;
+}
+
+#listDiv ul {
+	list-style: none;
+}
+
+#listDiv li {
+	margin: 10px 0;
+}
+
+.todoItemText {
+	display: inline-block;
+	max-width: 80%;
+	margin-left: 10px;
+	text-align: justify;
+}
+
+.todoItemCheckbox {
+	display: inline-block;
+	vertical-align: top;
+}
+
+div.delDiv {
+	float: right;
 }

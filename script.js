@@ -1,16 +1,16 @@
-let $todoText = $("#inputText");
-let $todoList = $("#listDiv");
+var $todoText = $("#inputText");
+var $todoList = $("#listDiv");
 
 function saveList(todoList) {
-	let todos = todoList.html();
+	let todos = todoList.children("ul").html();
    	localStorage.setItem('todos', todos);
    	console.log("Todo Saved!");
-   	return false;
+   	//return false;
 }
 
 function loadStoredList(todoList) {
 	if(localStorage.getItem('todos')) {
-		todoList.html(localStorage.getItem('todos'));
+		todoList.children("ul").html(localStorage.getItem('todos'));
 	}
 	console.log("List loaded from local storage!");
 }
@@ -18,14 +18,20 @@ function loadStoredList(todoList) {
 function appendTodo(todoText, todoList) {
 	//take what is in the input
 	let itemMarkup = `
-	<p>
-		<input type="checkbox" name="todoItem" value="${ todoText.val() }" class="todoItem"> 
-		<span class="todoItemText">${ todoText.val() }</span> &nbsp 
-		<button class="delButton">del</button>
-	</p>
+	<li>
+		<div class="listItemDiv">
+			<div class="todoItemCheckbox">
+				<input type="checkbox" name="todoItem" value="${ todoText.val() }" class="todoItem">
+			</div>
+			<div class="todoItemText">${ todoText.val() }</div>
+			<div class="delDiv">
+				<button class="delButton">del</button></span>
+			</div>
+		</div>
+	</li>
 	`;
 	//add it to the to do list
-	todoList.append(itemMarkup);
+	todoList.children("ul").append(itemMarkup);
 	//reset the input
 	todoText.val("");
 }
@@ -33,13 +39,14 @@ function appendTodo(todoText, todoList) {
 
 $("document").ready(function() {
 	loadStoredList($todoList);
-	console.log("Page loaded successfully!")
+	console.log("Page loaded successfully!");
 })
 
 
 // appending by "add" button
 $("#addItem").click(function() {
 	if ($.trim($todoText.val()).length > 0) {
+		console.log("clicked2");
 		appendTodo($todoText, $todoList);
 		saveList($todoList);
 	}
@@ -49,6 +56,7 @@ $("#addItem").click(function() {
 $todoText.keydown(function(event) {
 	if ($.trim($todoText.val()).length > 0) {
 	    if (event.which == 13) {
+	    	console.log("entered")
 	    	appendTodo($todoText, $todoList);
 	    	saveList($todoList);
 	    }
@@ -59,14 +67,15 @@ $todoText.keydown(function(event) {
 // .on() is used here because some of the elements here are added after the page load.
 $("#listDiv").on("change", ".todoItem", function() {
 	console.log("Something happened here!");
+	$listText = $(this).parent().next();
 	console.log($(this)[0].checked);
-	if ($(this).next().hasClass("done")) {
-		$(this).next().removeClass("done");
+	if ($listText.hasClass("done")) {
+		$listText.removeClass("done");
 		//had to use pure js cos i couldnt find a way to add/remove "checked" to/from the html with jquery
 		//since im using local storage, its not just behaviour that matters, but the html too so that the checked state is "remembered"
 		$(this)[0].removeAttribute("checked"); 
 	} else {
-		$(this).next().addClass("done");
+		$listText.addClass("done");
 		//had to use pure js cos i couldnt find a way to add/remove "checked" to/from the html with jquery
 		//since im using local storage, its not just behaviour that matters, but the html too so that the checked state is "remembered"
 		$(this)[0].setAttribute("checked", "checked");
@@ -76,7 +85,7 @@ $("#listDiv").on("change", ".todoItem", function() {
 
 // delete button
 $("#listDiv").on("click", ".delButton", function() {
-	$(this).parent().remove();
+	$(this).parent().parent().parent().remove();
 	console.log("You've deleted an item permanently!");
 	saveList($todoList);
 });

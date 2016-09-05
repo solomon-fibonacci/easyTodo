@@ -32,8 +32,9 @@ h1 {
 button {
 	background-color: #4f4f4f;
 	border: none;
-	border-radius: 5px;
+	border-radius: 2px;
 	color: #f9f9f9;
+	padding: 0:;
 }
 
 #listDiv ul {

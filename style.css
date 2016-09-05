@@ -1,63 +1,77 @@
 div.done {
-	text-decoration: line-through;
-	color: #717171;
+    text-decoration: line-through;
+    color: #717171;
 }
 
 #container {
-	background-color: #f5f5f5;
-	font-family: 'Dosis', sans-serif;
-	max-width: 680px;
-	margin: 0 auto;
-	padding-bottom: 10px;
-
+    background-color: #f5f5f5;
+    font-family: 'Dosis', sans-serif;
+    max-width: 750px;
+    margin: 0 auto;
+    padding-bottom: 10px;
 }
 
-h1 {
-	text-align: center;
-	color: #fefefe;
-	background-color: #3a3a3a;
-	margin-bottom: 3%;
-	padding: 3%;
+#todoHeader {
+    text-align: center;
+    background-color: #3a3a3a;
 }
 
-#inputDiv {
-	text-align: center;
+h1, #inputDiv {
+    color: #fefefe;
+    padding: 3%;
+}
+
+#inputText {
+    width: 300px;
+    height: 30px;
+    font-size: 1em;
+    font-weight: lighter;
 }
 
 #listDiv {
-	font-size: 17px;
-	padding-right: 20px;
+    font-size: 1.1em;
+    padding-right: 20px;
 }
 
 button {
-	background-color: #4f4f4f;
-	border: none;
-	border-radius: 2px;
-	color: #f9f9f9;
-	padding: 0:;
+    background-color: #3a3a3a;
+    border: none;
+    border-radius: 3px;
+    color: #f9f9f9;
+    padding: 1px 3px;
+    vertical-align: bottom;
 }
 
+button.delButton {
+	background-color: #f5f5f5;
+}
+
+.delButton i {
+	color: #3a3a3a;
+}
+
+
 #listDiv ul {
-	list-style: none;
-	padding-left: 5px;
+    list-style: none;
+    padding-left: 5px;
 }
 
 #listDiv li {
-	margin: 10px 0;
+    margin: 10px 0;
 }
 
 .todoItemText {
-	display: inline-block;
-	max-width: 80%;
-	margin-left: 10px;
-	text-align: justify;
+    display: inline-block;
+    max-width: 80%;
+    margin-left: 10px;
+    text-align: justify;
 }
 
 .todoItemCheckbox {
-	display: inline-block;
-	vertical-align: top;
+    display: inline-block;
+    vertical-align: top;
 }
 
 div.delDiv {
-	float: right;
+    float: right;
 }

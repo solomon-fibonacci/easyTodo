@@ -2,7 +2,7 @@ var $todoText = $("#inputText");
 var $todoList = $("#listDiv");
 
 function saveList(todoList) {
-	let todos = todoList.children("ul").html();
+	var todos = todoList.children("ul").html();
    	localStorage.setItem('todos', todos);
    	console.log("Todo Saved!");
    	//return false;
@@ -25,7 +25,7 @@ function appendTodo(todoText, todoList) {
 			</div>
 			<div class="todoItemText">${ todoText.val() }</div>
 			<div class="delDiv">
-				<button class="delButton"><i class="fa fa-trash" aria-hidden="true"></i></button>
+				<button class="delButton"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>
 			</div>
 		</div>
 	</li>

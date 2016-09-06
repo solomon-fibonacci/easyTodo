@@ -37,6 +37,7 @@ function appendTodo(todoText, todoList) {
 
 
 $("document").ready(function() {
+	$("#errorSpan").hide();
 	loadStoredList($todoList);
 	console.log("Page loaded successfully!");
 })
@@ -45,9 +46,15 @@ $("document").ready(function() {
 // appending by "add" button
 $("#addItem").click(function() {
 	if ($.trim($todoText.val()).length > 0) {
-		console.log("clicked2");
-		appendTodo($todoText, $todoList);
-		saveList($todoList);
+		if ($.trim($todoText.val()).length > 140){
+			console.log("You don fucked up!")
+    		$("#errorSpan").fadeIn(1000)
+    		$("#errorSpan").delay(10000).fadeOut(1000)
+    	} else {
+	    	console.log("entered")
+	    	appendTodo($todoText, $todoList);
+	    	saveList($todoList);
+	    }
 	}
 });
 
@@ -55,9 +62,14 @@ $("#addItem").click(function() {
 $todoText.keydown(function(event) {
 	if ($.trim($todoText.val()).length > 0) {
 	    if (event.which == 13) {
-	    	console.log("entered")
-	    	appendTodo($todoText, $todoList);
-	    	saveList($todoList);
+	    	if ($.trim($todoText.val()).length > 140){
+	    		$("#errorSpan").fadeIn(1000)
+	    		$("#errorSpan").delay(10000).fadeOut(1000)
+	    	} else {
+		    	console.log("entered")
+		    	appendTodo($todoText, $todoList);
+		    	saveList($todoList);
+		    }
 	    }
 	}
 });

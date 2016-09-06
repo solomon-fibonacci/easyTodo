@@ -18,7 +18,13 @@ div.done {
 
 h1, #inputDiv {
     color: #fefefe;
-    padding: 3%;
+    padding: 3% 3% 0 3%;
+}
+
+#inputError {
+	height: 25px;
+	font-size: 0.9em;
+	padding-top: 4px;
 }
 
 #inputText {
@@ -65,6 +71,7 @@ button.delButton {
     max-width: 80%;
     margin-left: 10px;
     text-align: justify;
+    word-wrap: break-word;
 }
 
 .todoItemCheckbox {
@@ -75,3 +82,5 @@ button.delButton {
 div.delDiv {
     float: right;
 }
+
+

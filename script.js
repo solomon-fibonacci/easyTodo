@@ -1,44 +1,39 @@
 var $todoText = $("#inputText");
-var $todoList = $("#listDiv");
+var $todoList = $.parseJSON(localStorage.getItem('todos'));
+var template = $("#todo-template").html();
 
 function saveList(todoList) {
-	var todos = todoList.children("ul").html();
-   	localStorage.setItem('todos', todos);
+	var newData = JSON.stringify(todoList);
+   	localStorage.setItem('todos', newData);
    	console.log("Todo Saved!");
    	//return false;
 }
 
-function loadStoredList(todoList) {
+function loadStoredList() {
+	var data = "{}";
 	if(localStorage.getItem('todos')) {
-		todoList.children("ul").html(localStorage.getItem('todos'));
+		data = $todoList;
+		todoList.children("ul").html(Mustache.render(template, data))
 	}
 	console.log("List loaded from local storage!");
 }
 
-function appendTodo(todoText, todoList) {
+function appendTodo(todoText, data) {
 	//take what is in the input
-	var itemMarkup = " " + 
-		"<li>" +
-			'<div class="listItemDiv">' +
-				'<div class="todoItemCheckbox">' +
-					'<input type="checkbox" name="todoItem" value="' + todoText.val() + '" class="todoItem">' + 
-				'</div>' + 
-				'<div class="todoItemText">' + todoText.val() + '</div>' +
-				'<div class="delDiv">' +
-					'<button class="delButton"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>' +
-				'</div>' +
-			'</div>' +
-		'</li>';
+	var newTask = {"task": todoText.val()};
 	//add it to the to do list
-	todoList.children("ul").append(itemMarkup);
+	data.tasks.push(newTask);
+	todoList.children("ul").html(Mustache.render(template, data))
 	//reset the input
 	todoText.val("");
+	saveList(data);
+
 }
 
 
 $("document").ready(function() {
 	$("#errorSpan").hide();
-	loadStoredList($todoList);
+	loadStoredList();
 	console.log("Page loaded successfully!");
 })
 
@@ -53,7 +48,6 @@ $("#addItem").click(function() {
     	} else {
 	    	console.log("entered")
 	    	appendTodo($todoText, $todoList);
-	    	saveList($todoList);
 	    }
 	}
 });
@@ -68,7 +62,6 @@ $todoText.keydown(function(event) {
 	    	} else {
 		    	console.log("entered")
 		    	appendTodo($todoText, $todoList);
-		    	saveList($todoList);
 		    }
 	    }
 	}
@@ -98,5 +91,9 @@ $("#listDiv").on("change", ".todoItem", function() {
 $("#listDiv").on("click", ".delButton", function() {
 	$(this).parent().parent().parent().remove();
 	console.log("You've deleted an item permanently!");
+	var remainingTasks = [];
+	$(this).closest('ul').children().each(function() {
+		var $this
+	})
 	saveList($todoList);
 });

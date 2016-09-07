@@ -16,7 +16,6 @@
             <h1>To-Do List</h1>
             <!-- Form to input your task -->
             <div id="inputDiv">
-
                 <input type="text" id="inputText" name="" value="">
                 <button id="addItem"><i class="fa fa-plus-square fa-3x" aria-hidden="true"></i></button>
                 <div id="inputError"><span id="errorSpan">Please limit your entry to 140 characters.</span></div>
@@ -26,11 +25,29 @@
         <div id="listDiv">
             <!-- When Checked the item is moved to the bottom and striked -->
             <ul>
+            <script id="todo-template" type="text/template">
+                {{#tasks}}
+                <li>
+                    <div class="listItemDiv">
+                        <div class="todoItemCheckbox">
+                            <input type="checkbox" name="todoItem" value="" class="todoItem">
+                        </div>
+                        <div class="todoItemText">
+                            {{task}}
+                        </div>
+                        <div class="delDiv">
+                            <button class="delButton"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </li>
+                {{/tasks}}
+                </script>
             </ul>
         </div>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>script
 <script src="script.js"></script>
 
 </html>

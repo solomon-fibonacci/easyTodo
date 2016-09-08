@@ -1,5 +1,11 @@
 var $todoText = $("#inputText");
-var $todoList = $.parseJSON(localStorage.getItem('todos'));
+if ($.trim(localStorage.getItem('todos')).length > 0) {
+	var $todoList = $.parseJSON(localStorage.getItem('todos'));
+} else {
+	localStorage.setItem('todos', '{"tasks": []}');
+	var $todoList = $.parseJSON(localStorage.getItem('todos'));
+}
+
 var template = $("#todo-template").html();
 
 function saveList(todoList) {
@@ -13,17 +19,22 @@ function loadStoredList() {
 	var data = "{}";
 	if(localStorage.getItem('todos')) {
 		data = $todoList;
-		todoList.children("ul").html(Mustache.render(template, data))
+		$("#listDiv").children("ul").html(Mustache.render(template, data))
 	}
 	console.log("List loaded from local storage!");
 }
 
 function appendTodo(todoText, data) {
+	if (data.tasks.length > 0) {
+		var id = (data.tasks[data.tasks.length - 1].itemID) + 1 ; // increment the last id by 1
+	} else {
+		var id = 1;
+	}
 	//take what is in the input
-	var newTask = {"task": todoText.val()};
+	var newTask = {itemID: id, task: todoText.val()};
 	//add it to the to do list
 	data.tasks.push(newTask);
-	todoList.children("ul").html(Mustache.render(template, data))
+	$("#listDiv").children("ul").html(Mustache.render(template, data))
 	//reset the input
 	todoText.val("");
 	saveList(data);
@@ -46,7 +57,7 @@ $("#addItem").click(function() {
     		$("#errorSpan").fadeIn(1000)
     		$("#errorSpan").delay(10000).fadeOut(1000)
     	} else {
-	    	console.log("entered")
+	    	console.log("enteredclick")
 	    	appendTodo($todoText, $todoList);
 	    }
 	}
@@ -89,11 +100,20 @@ $("#listDiv").on("change", ".todoItem", function() {
 
 // delete button
 $("#listDiv").on("click", ".delButton", function() {
-	$(this).parent().parent().parent().remove();
+	var matchingDeletedItems = $todoList.tasks.filter(function(obj) {
+		 return obj.task == $(this).text();
+	});
+	var matchingItemsCount = matchingDeletedItems.length
+	var remainingTasks = $todoList.tasks.filter(function(obj) {
+		 return obj.task != $(this).text();
+	});
+
+	if (matchingItemsCount > 1) {
+		var returningItems = [];
+
+	}
+	var deletedItem = matchingDeletedItems[0];
+	$(this).closest('li').remove();
 	console.log("You've deleted an item permanently!");
-	var remainingTasks = [];
-	$(this).closest('ul').children().each(function() {
-		var $this
-	})
 	saveList($todoList);
 });

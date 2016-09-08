@@ -26,12 +26,12 @@ function loadStoredList() {
 
 function appendTodo(todoText, data) {
 	if (data.tasks.length > 0) {
-		var id = (data.tasks[data.tasks.length - 1].itemID) + 1 ; // increment the last id by 1
+		var id = (data.tasks[data.tasks.length - 1].itemid) + 1 ; // increment the last id by 1
 	} else {
 		var id = 1;
 	}
 	//take what is in the input
-	var newTask = {itemID: id, task: todoText.val()};
+	var newTask = {itemid: id, task: todoText.val()};
 	//add it to the to do list
 	data.tasks.push(newTask);
 	$("#listDiv").children("ul").html(Mustache.render(template, data))
@@ -100,19 +100,16 @@ $("#listDiv").on("change", ".todoItem", function() {
 
 // delete button
 $("#listDiv").on("click", ".delButton", function() {
-	var matchingDeletedItems = $todoList.tasks.filter(function(obj) {
-		 return obj.task == $(this).text();
-	});
-	var matchingItemsCount = matchingDeletedItems.length
-	var remainingTasks = $todoList.tasks.filter(function(obj) {
-		 return obj.task != $(this).text();
-	});
-
-	if (matchingItemsCount > 1) {
-		var returningItems = [];
-
-	}
-	var deletedItem = matchingDeletedItems[0];
+	var deletedItemID = $(this).closest('li').data('itemid');
+	console.log(deletedItemID);
+	console.log($todoList);
+	var remainingItems = $todoList.tasks.filter(function(obj) {
+		return obj.itemid != deletedItemID;
+	})
+	console.log(remainingItems);
+	console.log(deletedItemID);
+	console.log(remainingItems);
+	$todoList.tasks = remainingItems;
 	$(this).closest('li').remove();
 	console.log("You've deleted an item permanently!");
 	saveList($todoList);

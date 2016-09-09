@@ -21,6 +21,15 @@ function loadStoredList() {
 		data = $todoList;
 		$("#listDiv").children("ul").html(Mustache.render(template, data))
 	}
+	console.log($('.todoLi').children());
+	$.each($(".todoLi"), function() {
+		console.log('here');
+		console.log($(this));
+		if($(this).data('ischecked')) {
+			$(this)[0].setAttribute("checked", "checked");
+			$(this).addClass('done');
+		}
+	});
 	console.log("List loaded from local storage!");
 }
 
@@ -31,7 +40,7 @@ function appendTodo(todoText, data) {
 		var id = 1;
 	}
 	//take what is in the input
-	var newTask = {itemid: id, task: todoText.val()};
+	var newTask = {itemid: id, task: todoText.val(), ischecked: 0};
 	//add it to the to do list
 	data.tasks.push(newTask);
 	$("#listDiv").children("ul").html(Mustache.render(template, data))
@@ -81,20 +90,21 @@ $todoText.keydown(function(event) {
 
 // .on() is used here because some of the elements here are added after the page load.
 $("#listDiv").on("change", ".todoItem", function() {
-	console.log("Something happened here!");
-	$listText = $(this).parent().next();
+	console.log("check/uncheck!");
+	$listText = $(this).parent().next(); //closest("todoItemText");
 	console.log($(this)[0].checked);
-	if ($listText.hasClass("done")) {
-		$listText.removeClass("done");
-		//had to use pure js cos i couldnt find a way to add/remove "checked" to/from the html with jquery
-		//since im using local storage, its not just behaviour that matters, but the html too so that the checked state is "remembered"
-		$(this)[0].removeAttribute("checked"); 
-	} else {
-		$listText.addClass("done");
-		//had to use pure js cos i couldnt find a way to add/remove "checked" to/from the html with jquery
-		//since im using local storage, its not just behaviour that matters, but the html too so that the checked state is "remembered"
-		$(this)[0].setAttribute("checked", "checked");
-	}
+	console.log($listText);
+	$listText.toggleClass("done");
+	changedItemID = $(this).closest('li').data('itemid');
+	$.each($todoList.tasks, function() {
+		if(this.itemid === changedItemID) {
+			console.log(this.ischecked);
+			this.ischecked = 1 - this.ischecked; //toggle between 0 and 1
+			console.log(this.ischecked);
+		}
+	});
+	console.log($todoList);
+	$(this).hasClass('done') ? $(this)[0].removeAttribute("checked") : $(this)[0].setAttribute("checked", "checked");
 	saveList($todoList);
 });
 
@@ -105,7 +115,7 @@ $("#listDiv").on("click", ".delButton", function() {
 	console.log($todoList);
 	var remainingItems = $todoList.tasks.filter(function(obj) {
 		return obj.itemid != deletedItemID;
-	})
+	});
 	console.log(remainingItems);
 	console.log(deletedItemID);
 	console.log(remainingItems);

@@ -27,6 +27,10 @@ h1, #inputDiv {
 	padding-top: 4px;
 }
 
+#errorSpan {
+    display: none;
+}
+
 #inputText {
     width: 280px;
     height: 30px;

@@ -50,7 +50,6 @@ function appendTodo(todoText, data) {
 
 
 $("document").ready(function() {
-	$("#errorSpan").hide();
 	loadStoredList();
 	console.log("Page loaded successfully!");
 })

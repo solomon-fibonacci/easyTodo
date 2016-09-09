@@ -23,11 +23,9 @@ function loadStoredList() {
 	}
 	console.log($('.todoLi').children());
 	$.each($(".todoLi"), function() {
-		console.log('here');
-		console.log($(this));
 		if($(this).data('ischecked')) {
-			$(this)[0].setAttribute("checked", "checked");
-			$(this).addClass('done');
+			$(this).find('.todoItem')[0].setAttribute("checked", "checked");
+			$(this).find('.todoItemText').addClass('done');
 		}
 	});
 	console.log("List loaded from local storage!");

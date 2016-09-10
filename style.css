@@ -78,7 +78,7 @@ button.delButton {
     word-wrap: break-word;
 }
 
-.todoItemCheckbox {
+.todoItem {
     display: inline-block;
     vertical-align: top;
 }

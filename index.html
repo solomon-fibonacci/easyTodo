@@ -25,22 +25,18 @@
         <div id="listDiv">
             <!-- When Checked the item is moved to the bottom and striked -->
             <ul>
-            <script id="todo-template" type="text/template">
-                {{#tasks}}
-                <li data-itemid="{{itemid}}" data-ischecked="{{ischecked}}" class="todoLi">
-                    <div class="listItemDiv">
-                        <div class="todoItemCheckbox">
-                            <input type="checkbox" name="todoItem" value="" class="todoItem">
-                        </div>
+                <script id="todo-template" type="text/template">
+                    {{#tasks}}
+                    <li data-itemid="{{itemid}}" data-ischecked="{{ischecked}}" class="todoLi">
+                        <input type="checkbox" name="todoItem" value="" class="todoItem">
                         <div class="todoItemText">
                             {{task}}
                         </div>
                         <div class="delDiv">
                             <button class="delButton"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>
                         </div>
-                    </div>
-                </li>
-                {{/tasks}}
+                    </li>
+                    {{/tasks}}
                 </script>
             </ul>
         </div>

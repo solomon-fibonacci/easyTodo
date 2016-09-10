@@ -88,7 +88,7 @@ $todoText.keydown(function(event) {
 // .on() is used here because some of the elements here are added after the page load.
 $("#listDiv").on("change", ".todoItem", function() {
 	console.log("check/uncheck!");
-	$listText = $(this).parent().next(); //closest("todoItemText");
+	$listText = $(this).next(); //closest("todoItemText");
 	console.log($(this)[0].checked);
 	console.log($listText);
 	$listText.toggleClass("done");

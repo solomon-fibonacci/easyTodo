@@ -50,6 +50,11 @@ button {
     color: #f9f9f9;
     padding: 1px 3px;
     vertical-align: bottom;
+    cursor: pointer;
+}
+
+button:focus {
+    outline:0;
 }
 
 button.delButton {

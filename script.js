@@ -37,7 +37,15 @@ function appendTodo(todoText, data) {
         var id = 1;
     }
     //take what is in the input
-    var newTask = { itemid: id, task: todoText.val(), ischecked: 0 };
+    var today =  new Date();
+    var day = today.getDate();
+    day < 10 ? day = "0" + day.toString() : day.toString();
+    var month = today.getMonth() + 1;
+    month < 10 ? month = "0" + month.toString() : month.toString();
+    var year = today.getFullYear();
+    year < 10 ? year = "0" + year.toString() : year.toString();
+    taskDate = day + month + year;
+    var newTask = { itemid: id, task: todoText.val(), ischecked: 0, date: taskDate };
     //add it to the to do list
     data.tasks.push(newTask);
     $("#listDiv").children("ul").html(Mustache.render(template, data))

@@ -27,7 +27,8 @@ function saveList(list) {
 
 function renderStoredList(storedList) {
     var today = moment().format("dddd, Do MMMM");
-    //$("h2").html(today);
+    //console.log(today);
+    $("h2").html(today);
     $("#listDiv").children("ul").html(Mustache.render(template, storedList));
     $.each($(".todoLi"), function() {
         if ($(this).data('ischecked')) {

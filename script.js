@@ -7,17 +7,6 @@ if ($.trim(localStorage.getItem('todos')).length > 0) {
 
 var template = $("#todo-template").html();
 
-function getTodaysDate() {
-    var today = new Date();
-    var day = today.getDate();
-    day < 10 ? day = "0" + day.toString() : day.toString();
-    var month = today.getMonth() + 1;
-    month < 10 ? month = "0" + month.toString() : month.toString();
-    var year = today.getFullYear();
-    year < 10 ? year = "0" + year.toString() : year.toString();
-    return day + month + year;
-}
-
 function saveList(list) {
     var newData = JSON.stringify(list);
     localStorage.setItem('todos', newData);
@@ -27,7 +16,7 @@ function saveList(list) {
 
 function renderStoredList(storedList) {
     var today = moment().format("dddd, Do MMMM");
-    //console.log(today);
+    console.log(moment().format("DDMMYYYY"));
     $("h2").html(today);
     $("#listDiv").children("ul").html(Mustache.render(template, storedList));
     $.each($(".todoLi"), function() {
@@ -46,7 +35,7 @@ function appendTodo(todoText, data) {
         var id = 1;
     }
     //take what is in the input
-    taskDate = getTodaysDate();
+    taskDate = moment().format("DDMMYYYY");
     var newTask = { itemid: id, task: todoText.val(), ischecked: 0, date: taskDate };
     //add it to the to do list
     data.tasks.push(newTask);

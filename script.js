@@ -2,12 +2,13 @@ var $todoText = $("#inputText");
 if ($.trim(localStorage.getItem('todos')).length > 0) {
     var todoList = $.parseJSON(localStorage.getItem('todos'));
 } else {
-    var todoList = {tasks: []};
+    var todoList = { tasks: [] };
 }
 
 var template = $("#todo-template").html();
+
 function getTodaysDate() {
-	var today = new Date();
+    var today = new Date();
     var day = today.getDate();
     day < 10 ? day = "0" + day.toString() : day.toString();
     var month = today.getMonth() + 1;
@@ -16,6 +17,7 @@ function getTodaysDate() {
     year < 10 ? year = "0" + year.toString() : year.toString();
     return day + month + year;
 }
+
 function saveList(list) {
     var newData = JSON.stringify(list);
     localStorage.setItem('todos', newData);
@@ -24,9 +26,9 @@ function saveList(list) {
 }
 
 function renderStoredList(storedList) {
-	storedList.date = getTodaysDate();
-	console.log(storedList);
-    $("#listDiv").children("ul").html(Mustache.render(template, storedList))
+    var today = moment().format("dddd, Do MMMM");
+    $("h2").html(today);
+    $("#listDiv").children("ul").html(Mustache.render(template, storedList));
     $.each($(".todoLi"), function() {
         if ($(this).data('ischecked')) {
             $(this).find('.todoItem')[0].setAttribute("checked", "checked");

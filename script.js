@@ -15,12 +15,8 @@ function saveList(list) {
     //return false;
 }
 
-function loadStoredList() {
-    var data = "{}";
-    if (localStorage.getItem('todos')) {
-        data = todoList;
-        $("#listDiv").children("ul").html(Mustache.render(template, data))
-    }
+function renderStoredList(storedList) {
+    $("#listDiv").children("ul").html(Mustache.render(template, storedList))
     $.each($(".todoLi"), function() {
         if ($(this).data('ischecked')) {
             $(this).find('.todoItem')[0].setAttribute("checked", "checked");
@@ -37,7 +33,7 @@ function appendTodo(todoText, data) {
         var id = 1;
     }
     //take what is in the input
-    var today =  new Date();
+    var today = new Date();
     var day = today.getDate();
     day < 10 ? day = "0" + day.toString() : day.toString();
     var month = today.getMonth() + 1;
@@ -57,7 +53,7 @@ function appendTodo(todoText, data) {
 
 
 $("document").ready(function() {
-    loadStoredList();
+    renderStoredList(todoList);
     console.log("Page loaded successfully!");
 })
 

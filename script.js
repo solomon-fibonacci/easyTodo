@@ -11,14 +11,17 @@ function saveList(list) {
     var newData = JSON.stringify(list);
     localStorage.setItem('todos', newData);
     console.log("Todo Saved!");
-    //return false;
 }
 
-function renderStoredList(storedList) {
+function renderStoredList(data, filterDate) {
     var today = moment().format("dddd, Do MMMM");
-    console.log(moment().format("DDMMYYYY"));
+    var date = filterDate || moment().format("DDMMYYYY");
+    var listToRender = data.tasks.filter(function(t){
+    	return t.date == date;
+    })
+    data.tasks = listToRender;
     $("h2").html(today);
-    $("#listDiv").children("ul").html(Mustache.render(template, storedList));
+    $("#listDiv").children("ul").html(Mustache.render(template, data));
     $.each($(".todoLi"), function() {
         if ($(this).data('ischecked')) {
             $(this).find('.todoItem')[0].setAttribute("checked", "checked");

@@ -15,12 +15,12 @@
     <div id="container">
         <div id="todoHeader">
             <h1>To-Do List</h1>
-            <i id='back' class="fa fa-chevron-left" aria-hidden="true"></i> &nbsp
-            <h2></h2> &nbsp
+            <i id='back' class="fa fa-chevron-left" aria-hidden="true"></i> &nbsp;
+            <h2></h2> &nbsp;
             <i id='forward' class="fa fa-chevron-right" aria-hidden="true"></i>
             <!-- Form to input your task -->
             <div id="inputDiv">
-                <input type="text" id="inputText" name="" value="">
+                <input type="text" id="inputText">
                 <button id="addItem"><i class="fa fa-plus-square fa-3x" aria-hidden="true"></i></button>
                 <div id="inputError"><span id="errorSpan">Please limit your entry to 140 characters.</span></div>
             </div>
@@ -36,7 +36,6 @@
                         <div class="todoItemText">
                             {{task}}
                         </div>
-
                         <div class="delDiv">
                             <button class="editButton">edit</button>
                             <button class="delButton"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>
@@ -47,11 +46,11 @@
             </ul>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jeditable.js/1.7.3/jeditable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+    <script src="script.js"></script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jeditable.js/1.7.3/jeditable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
-<script src="script.js"></script>
 
 </html>

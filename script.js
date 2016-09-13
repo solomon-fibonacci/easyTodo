@@ -1,9 +1,10 @@
 var $todoText = $("#inputText");
+var todoList;
 if ($.trim(localStorage.getItem('todos')).length > 0) {
-    var todoList = $.parseJSON(localStorage.getItem('todos'));
+    todoList = $.parseJSON(localStorage.getItem('todos'));
     console.log(todoList);
 } else {
-    var todoList = { tasks: [] };
+    todoList = { tasks: [] };
 }
 
 console.log(todoList);
@@ -17,23 +18,19 @@ function saveList(list) {
 }
 
 function renderStoredList(data, filterDate) {
-	console.log(data);
     var date = filterDate || moment().format("DDMMYYYY");
-    var listToRender = data.tasks.filter(function(t) {
+    var listToRender = {};
+    listToRender.tasks = data.tasks.filter(function(t) {
         return t.date == date;
-    })
-    console.log(date);
-    console.log(listToRender);
-    data.tasks = listToRender;
+    });
     $("h2").html(moment(date, "DDMMYYYY").format("dddd, Do MMMM"));
-    $("#listDiv").children("ul").html(Mustache.render(template, data));
+    $("#listDiv").children("ul").html(Mustache.render(template, listToRender));
     $.each($(".todoLi"), function() {
         if ($(this).data('ischecked')) {
             $(this).find('.todoItem')[0].setAttribute("checked", "checked");
             $(this).find('.todoItemText').addClass('done');
         }
     });
-    console.log("List loaded from local storage!");
 }
 
 function appendTodo(todoText, data) {
@@ -90,19 +87,13 @@ $todoText.keydown(function(event) {
 });
 
 $("#back").click(function() {
-	console.log(todoList);
 	var prevDate = moment($("h2").text(), "ddd, Do MMMM").subtract(1, "days").format("DDMMYYYY");
-	console.log(typeof prevDate);
-	console.log(todoList);
-	renderStoredList({tasks: [{age:22},{age:23}]}, prevDate);
+	renderStoredList(todoList, prevDate);
 })
 
 $("#forward").click(function() {
-	console.log(todoList);
 	var nextDate = moment($("h2").text(), "ddd, Do MMMM").add(1, "days").format("DDMMYYYY");
 	renderStoredList(todoList, nextDate);
-	console.log(nextDate);
-	console.log(todoList);
 })
 
 // .on() is used here because some of the elements here are added after the page load.

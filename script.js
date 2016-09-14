@@ -17,8 +17,8 @@ var todoApp = {
 
     cacheDom: function() {
         this.$doc = $('#container');
-        this.$forwardButton = this.$doc.find('forward');
-        this.$backButton = this.$doc.find('back');
+        this.$forwardButton = this.$doc.find('#forward');
+        this.$backButton = this.$doc.find('#back');
         this.$displayDate = this.$doc.find('h2');
         this.$input = this.$doc.find('#inputText');
         this.$errorSpan = this.$doc.find('#errorSpan');
@@ -44,8 +44,12 @@ var todoApp = {
     },
 
     render: function() {
+        var filterDate = moment(this.displayDate, 'ddd, Do MMMM').format('DDMMYYYY');
+        var filteredTasks = this.tasks.filter(function(t) {
+            return t.date == filterDate;
+        })
         var data = {
-            tasks: this.tasks,
+            tasks: filteredTasks,
             displayDate: this.displayDate,
         };
         this.$ul.html(Mustache.render(this.template, data));
@@ -54,21 +58,20 @@ var todoApp = {
             var $item = $(item);
             var $text = $item.children('.todoItemText');
             var $checkbox = $text.siblings('.todoCheckbox');
-            $item.data('ischecked') ? 
-            	$text.addClass('done') : 
-            	$text.removeClass('done');
+            $item.data('ischecked') ?
+                $text.addClass('done') :
+                $text.removeClass('done');
 
-            $text.hasClass('done') ? 
-            	$checkbox[0].setAttribute("checked", "checked") : 
-            	$checkbox[0].removeAttribute("checked");
-            //debugger;
+            $text.hasClass('done') ?
+                $checkbox[0].setAttribute("checked", "checked") :
+                $checkbox[0].removeAttribute("checked");
         });
     },
 
-    renderError: function(errorMsg) {
-    	this.$errorSpan.html(errorMsg);
-    	this.$errorSpan.fadeOut(500);
-    	this.$errorSpan.fadeIn(1000);
+    renderError: function(errorMsg) { // todo: fix the repeating
+        this.$errorSpan.html(errorMsg);
+        this.$errorSpan.fadeOut(500);
+        this.$errorSpan.fadeIn(1000);
         this.$errorSpan.delay(10000).fadeOut(1000);
     },
 
@@ -96,10 +99,10 @@ var todoApp = {
         } else {
             // do something about errors here.
             var errorMsg;
-       		this.isValid(this.$input.val()) == 'longer' ?
-       			errorMsg = 'Please limit your entry to 140 characters.' :
-       			errorMsg = 'Entry cannot be empty.';
-       		this.renderError(errorMsg);
+            this.isValid(this.$input.val()) == 'longer' ?
+                errorMsg = 'Please limit your entry to 140 characters.' :
+                errorMsg = 'Entry cannot be empty.';
+            this.renderError(errorMsg);
         }
     },
 
@@ -139,10 +142,16 @@ var todoApp = {
     },
 
     goBack: function() {
-
+        console.log('we here');
+        // debugger;
+        this.displayDate = moment(this.displayDate, 'ddd, Do MMMM').subtract(1, 'days').format('ddd, Do MMMM');
+        this.render();
     },
 
     goForward: function() {
+        // debugger;
+        this.displayDate = moment(this.displayDate, 'ddd, Do MMMM').add(1, 'days').format('ddd, Do MMMM');
+        this.render();
 
     },
 };

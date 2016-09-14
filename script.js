@@ -12,12 +12,14 @@ var todoApp = {
         } else {
             this.tasks = [];
         }
+        this.displayDate = moment().format("dddd, Do MMMM");
     },
 
     cacheDom: function() {
         this.$doc = $('#container');
         this.$forwardButton = this.$doc.find('forward');
         this.$backButton = this.$doc.find('back');
+        this.$displayDate = this.$doc.find('h2');
         this.$input = this.$doc.find('#inputText');
         this.$addButton = this.$doc.find('#addItem');
         this.$listDiv = this.$doc.find('#listDiv');
@@ -42,11 +44,13 @@ var todoApp = {
 
     render: function() {
         var data = {
-            tasks: this.tasks
+            tasks: this.tasks,
+            displayDate: this.displayDate,
         };
         this.$ul.html(Mustache.render(this.template, data));
+        this.$displayDate.html(this.displayDate);
         this.$ul.children('li').each(function(index, item) {
-        	var $item = $(item);
+            var $item = $(item);
             var $text = $item.children('.todoItemText');
             $item.data('ischecked') ? $text.addClass('done') : $text.removeClass('done');
             $text.hasClass('done') ? $text[0].removeAttribute("checked") : $text[0].setAttribute("checked", "checked");
@@ -55,13 +59,16 @@ var todoApp = {
 
     addItem: function(event) {
         if (this.isValid(this.$input.val())) {
-            if (!event || event.which == 13) {
+            if (event.type == 'click' || $(event.which)[0] == 13) {
+                if (!event) {
+                    console.log('you tryna add item with button');
+                }
                 var id;
                 var newTask;
                 var taskDate = moment().format('DDMMYYYY');
                 var listLength = this.tasks.length;
                 if (listLength > 0) {
-                    id = (this.tasks[listLength - 1].itemID) + 1;
+                    id = (this.tasks[listLength - 1].itemid) + 1;
                 } else {
                     id = 1;
                 }
@@ -77,7 +84,7 @@ var todoApp = {
     },
 
     isValid: function(input) {
-        if (input.length < 140 || !input.legnth > 0) {
+        if (input.length > 140 || input.length < 1) {
             return false;
         }
         return true;

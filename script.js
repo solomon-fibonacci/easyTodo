@@ -52,6 +52,11 @@ var todoApp = {
             tasks: filteredTasks,
             displayDate: this.displayDate,
         };
+        var todaysDate = moment().format('dddd, Do MMMM')
+        if (this.displayDate != todaysDate) {
+        	this.$input.prop('disabled', true);
+        }
+        debugger;
         this.$ul.html(Mustache.render(this.template, data));
         this.$displayDate.html(this.displayDate);
         this.$ul.children('li').each(function(index, item) {
@@ -97,7 +102,6 @@ var todoApp = {
                 this.saveList();
             }
         } else {
-            // do something about errors here.
             var errorMsg;
             this.isValid(this.$input.val()) == 'longer' ?
                 errorMsg = 'Please limit your entry to 140 characters.' :
@@ -142,17 +146,13 @@ var todoApp = {
     },
 
     goBack: function() {
-        console.log('we here');
-        // debugger;
         this.displayDate = moment(this.displayDate, 'ddd, Do MMMM').subtract(1, 'days').format('ddd, Do MMMM');
         this.render();
     },
 
     goForward: function() {
-        // debugger;
         this.displayDate = moment(this.displayDate, 'ddd, Do MMMM').add(1, 'days').format('ddd, Do MMMM');
         this.render();
-
     },
 };
 

@@ -31,9 +31,9 @@
             <ul>
                 <script id="todoTemplate" type="text/template">
                     {{#tasks}}
-                    <li data-itemid="{{itemid}}" data-ischecked="{{ischecked}}" class="todoLi">
+                    <li data-itemid="{{itemid}}" data-ischecked="{{ischecked}}" data-editmode="0" class="todoLi">
                         <input type="checkbox" name="todoItem" value="" class="todoCheckbox">
-                        <input type="text" id="editBox">
+                        <input type="text" class="editBox">
                         <div class="todoItemText">
                             {{task}}
                         </div>

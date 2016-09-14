@@ -44,6 +44,7 @@ var todoApp = {
     },
 
     render: function() {
+        //todo: fix display date format ... inconsistent DoW length
         var filterDate = moment(this.displayDate, 'ddd, Do MMMM').format('DDMMYYYY');
         var filteredTasks = this.tasks.filter(function(t) {
             return t.date == filterDate;
@@ -54,15 +55,16 @@ var todoApp = {
         };
         var todaysDate = moment().format('dddd, Do MMMM')
         if (this.displayDate != todaysDate) {
-        	this.$input.prop('disabled', true);
+            this.$input.prop('disabled', true);
         }
-        debugger;
         this.$ul.html(Mustache.render(this.template, data));
         this.$displayDate.html(this.displayDate);
         this.$ul.children('li').each(function(index, item) {
             var $item = $(item);
             var $text = $item.children('.todoItemText');
+            var $editBox = $item.children('.editBox')
             var $checkbox = $text.siblings('.todoCheckbox');
+
             $item.data('ischecked') ?
                 $text.addClass('done') :
                 $text.removeClass('done');
@@ -141,8 +143,13 @@ var todoApp = {
         this.saveList();
     },
 
-    editItem: function() {
-
+    editItem: function(event) {
+        console.log("Coming for ya!");
+        var $text = $(event.target).siblings('.todoItemText');
+        $text.hide();
+        var $box = $(event.target).siblings('.editBox');
+        $box.show();
+        debugger;
     },
 
     goBack: function() {

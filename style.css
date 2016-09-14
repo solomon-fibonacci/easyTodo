@@ -110,3 +110,7 @@ button.delButton {
 div.delDiv {
     float: right;
 }
+
+.editBox {
+    display: none;
+}

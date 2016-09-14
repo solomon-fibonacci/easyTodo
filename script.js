@@ -21,6 +21,7 @@ var todoApp = {
         this.$backButton = this.$doc.find('back');
         this.$displayDate = this.$doc.find('h2');
         this.$input = this.$doc.find('#inputText');
+        this.$errorSpan = this.$doc.find('#errorSpan');
         this.$addButton = this.$doc.find('#addItem');
         this.$listDiv = this.$doc.find('#listDiv');
         this.$ul = this.$doc.find('ul');
@@ -30,7 +31,7 @@ var todoApp = {
     bindEvents: function() {
         this.$forwardButton.on('click', this.goForward.bind(this));
         this.$backButton.on('click', this.goBack.bind(this));
-        this.$input.on('keydown', this.addItem.bind(this));
+        this.$input.on('keyup', this.addItem.bind(this));
         this.$addButton.on('click', this.addItem.bind(this));
         this.$listDiv.on('change', '.todoCheckbox', this.tickItem.bind(this));
         this.$listDiv.on('click', '.delButton', this.deleteItem.bind(this));
@@ -53,15 +54,26 @@ var todoApp = {
             var $item = $(item);
             var $text = $item.children('.todoItemText');
             var $checkbox = $text.siblings('.todoCheckbox');
-            $item.data('ischecked') ? $text.addClass('done') : $text.removeClass('done');
+            $item.data('ischecked') ? 
+            	$text.addClass('done') : 
+            	$text.removeClass('done');
 
-            $text.hasClass('done') ? $checkbox[0].setAttribute("checked", "checked"): $checkbox[0].removeAttribute("checked");
+            $text.hasClass('done') ? 
+            	$checkbox[0].setAttribute("checked", "checked") : 
+            	$checkbox[0].removeAttribute("checked");
             //debugger;
         });
     },
 
+    renderError: function(errorMsg) {
+    	this.$errorSpan.html(errorMsg);
+    	this.$errorSpan.fadeOut(500);
+    	this.$errorSpan.fadeIn(1000);
+        this.$errorSpan.delay(10000).fadeOut(1000);
+    },
+
     addItem: function(event) {
-        if (this.isValid(this.$input.val())) {
+        if (this.isValid(this.$input.val()) == 'valid') {
             if (event.type == 'click' || $(event.which)[0] == 13) {
                 if (!event) {
                     console.log('you tryna add item with button');
@@ -83,14 +95,22 @@ var todoApp = {
             }
         } else {
             // do something about errors here.
+            var errorMsg;
+       		this.isValid(this.$input.val()) == 'longer' ?
+       			errorMsg = 'Please limit your entry to 140 characters.' :
+       			errorMsg = 'Entry cannot be empty.';
+       		this.renderError(errorMsg);
         }
     },
 
     isValid: function(input) {
-        if (input.length > 140 || input.length < 1) {
-            return false;
+        if (input.length > 140) {
+            return 'longer';
+        } else if (input.length < 1) {
+            return 'empty';
+        } else {
+            return 'valid';
         }
-        return true;
     },
 
     tickItem: function(event) {

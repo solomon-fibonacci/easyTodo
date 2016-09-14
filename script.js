@@ -52,8 +52,11 @@ var todoApp = {
         this.$ul.children('li').each(function(index, item) {
             var $item = $(item);
             var $text = $item.children('.todoItemText');
+            var $checkbox = $text.siblings('.todoCheckbox');
             $item.data('ischecked') ? $text.addClass('done') : $text.removeClass('done');
-            $text.hasClass('done') ? $text[0].removeAttribute("checked") : $text[0].setAttribute("checked", "checked");
+
+            $text.hasClass('done') ? $checkbox[0].setAttribute("checked", "checked"): $checkbox[0].removeAttribute("checked");
+            //debugger;
         });
     },
 

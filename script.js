@@ -54,6 +54,8 @@ var todoApp = {
             displayDate: this.displayDate,
         };
         var todaysDate = moment().format('dddd, Do MMMM')
+        console.log(todaysDate);
+        console.log(this.displayDate);
         if (this.displayDate != todaysDate) {
             this.$input.prop('disabled', true);
         }
@@ -144,12 +146,16 @@ var todoApp = {
     },
 
     editItem: function(event) {
-        console.log("Coming for ya!");
-        var $text = $(event.target).siblings('.todoItemText');
-        $text.hide();
-        var $box = $(event.target).siblings('.editBox');
-        $box.show();
-        debugger;
+        var $items = $(event.target).closest('ul').find('.todoItemText');
+        var $boxes = $(event.target).closest('ul').find('.editBox');
+        $boxes.hide();
+        $items.fadeIn(150);
+        var $text = $(event.target).closest('li').find('.todoItemText');
+        $text.fadeOut(50, function() {
+            var $box = $(event.target).closest('li').find('.editBox');
+            $box.fadeIn(150);
+        });
+
     },
 
     goBack: function() {

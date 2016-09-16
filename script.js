@@ -46,7 +46,6 @@ var todoApp = {
     },
 
     render: function() {
-        //todo: fix display date format ... inconsistent DoW length
         var filterDate = moment(this.displayDate, 'ddd, Do MMMM').format('DDMMYYYY');
         var filteredTasks = this.tasks.filter(function(t) {
             return t.date == filterDate;
@@ -56,10 +55,10 @@ var todoApp = {
             displayDate: this.displayDate,
         };
         var todaysDate = moment().format('dddd, Do MMMM')
-        console.log(todaysDate);
-        console.log(this.displayDate);
         if (this.displayDate != todaysDate) {
             this.$input.prop('disabled', true);
+        } else {
+            this.$input.prop('disabled', false);
         }
         this.$input.val('');
         this.$ul.html(Mustache.render(this.template, data));
@@ -170,12 +169,12 @@ var todoApp = {
     },
 
     goBack: function() {
-        this.displayDate = moment(this.displayDate, 'ddd, Do MMMM').subtract(1, 'days').format('ddd, Do MMMM');
+        this.displayDate = moment(this.displayDate, 'dddd, Do MMMM').subtract(1, 'days').format('dddd, Do MMMM');
         this.render();
     },
 
     goForward: function() {
-        this.displayDate = moment(this.displayDate, 'ddd, Do MMMM').add(1, 'days').format('ddd, Do MMMM');
+        this.displayDate = moment(this.displayDate, 'dddd, Do MMMM').add(1, 'days').format('dddd, Do MMMM');
         this.render();
     },
 };

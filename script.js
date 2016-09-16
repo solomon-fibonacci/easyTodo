@@ -59,6 +59,7 @@ var todoApp = {
         if (this.displayDate != todaysDate) {
             this.$input.prop('disabled', true);
         }
+        this.$input.val('');
         this.$ul.html(Mustache.render(this.template, data));
         this.$displayDate.html(this.displayDate);
         this.$ul.children('li').each(function(index, item) {
@@ -84,33 +85,44 @@ var todoApp = {
         this.$errorSpan.delay(10000).fadeOut(1000);
     },
 
-    addItem: function(event) {
-        if (this.isValid(this.$input.val()) == 'valid') {
-            if (event.type == 'click' || $(event.which)[0] == 13) {
-                if (!event) {
-                    console.log('you tryna add item with button');
-                }
+    addItem: function(event, taskID) {
+        var input;
+        event.type == 'click' ?
+            input = $(event.target).closest('button').prev().val() :
+            input = $(event.target).val();
+        if (event.type == 'click' || $(event.which)[0] == 13) {
+            console.log(input);
+            if (this.isValid(input) == 'valid') {
                 var id;
                 var newTask;
                 var taskDate = moment().format('DDMMYYYY');
-                var listLength = this.tasks.length;
-                if (listLength > 0) {
-                    id = (this.tasks[listLength - 1].itemid) + 1;
+                if (!taskID) {
+                    var listLength = this.tasks.length;
+                    if (listLength > 0) {
+                        (this.tasks[listLength - 1].itemid) + 1;
+                    } else {
+                        id = 1;
+                    }
+                    newTask = { itemid: id, task: this.$input.val(), ischecked: 0, date: taskDate };
+                    this.tasks.push(newTask);
                 } else {
-                    id = 1;
+                    id = taskID;
+                    $.each(this.tasks, function(index, task) {
+                        if (task.id == id) {
+                            task.task = input;
+                        }
+                    });
                 }
-                newTask = { itemid: id, task: this.$input.val(), ischecked: 0, date: taskDate };
-                this.tasks.push(newTask);
-                this.$input.val('');
+
                 this.render();
                 this.saveList();
+            } else {
+                var errorMsg;
+                this.isValid(this.$input.val()) == 'longer' ?
+                    errorMsg = 'Please limit your entry to 140 characters.' :
+                    errorMsg = 'Entry cannot be empty.';
+                this.renderError(errorMsg);
             }
-        } else {
-            var errorMsg;
-            this.isValid(this.$input.val()) == 'longer' ?
-                errorMsg = 'Please limit your entry to 140 characters.' :
-                errorMsg = 'Entry cannot be empty.';
-            this.renderError(errorMsg);
         }
     },
 
@@ -137,7 +149,7 @@ var todoApp = {
     },
 
     deleteItem: function(event) {
-        var deletedItemID = $(event.target).closest('li').data('itemid');
+        var deletedItemID = $(event.target).closest('li').data('itemid'); //why did i have to put $ before "event would work?"
         this.tasks = this.tasks.filter(function(obj) {
             return obj.itemid != deletedItemID;
         });
@@ -155,6 +167,7 @@ var todoApp = {
             var $box = $(event.target).closest('li').find('.editBox');
             $box.fadeIn(150);
         });
+
 
     },
 

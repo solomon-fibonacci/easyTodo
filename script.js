@@ -36,7 +36,7 @@ var todoApp = {
         this.$addButton.on('click', this.addItem.bind(this));
         this.$listDiv.on('change', '.todoCheckbox', this.tickItem.bind(this));
         this.$listDiv.on('click', '.delButton', this.deleteItem.bind(this));
-        this.$listDiv.on('click', '.editButton', this.editItem.bind(this));
+        this.$listDiv.on('click', '.editButton', this.renderEditBox.bind(this));
         this.$listDiv.on('click', '.updateButton', this.updateItem.bind(this));
         this.$listDiv.on('keyup', '.editBox input', this.updateItem.bind(this));
     },
@@ -86,6 +86,19 @@ var todoApp = {
         this.$errorSpan.fadeOut(500);
         this.$errorSpan.fadeIn(1000);
         this.$errorSpan.delay(10000).fadeOut(1000);
+    },
+    
+    renderEditBox: function(event) {
+        var $items = $(event.target).closest('ul').find('.todoItemText');
+        var $boxes = $(event.target).closest('ul').find('.editBox');
+        $boxes.hide();
+        $items.fadeIn(150);
+        var $text = $(event.target).closest('li').find('.todoItemText');
+        $text.fadeOut(50, function() {
+            var $box = $(event.target).closest('li').find('.editBox');
+            $box.children('input').val($.trim($text.contents().text()));
+            $box.fadeIn(150);
+        });
     },
 
     addItem: function(event, taskID) {
@@ -150,19 +163,6 @@ var todoApp = {
         });
         this.render();
         this.saveList();
-    },
-
-    editItem: function(event) {
-        var $items = $(event.target).closest('ul').find('.todoItemText');
-        var $boxes = $(event.target).closest('ul').find('.editBox');
-        $boxes.hide();
-        $items.fadeIn(150);
-        var $text = $(event.target).closest('li').find('.todoItemText');
-        $text.fadeOut(50, function() {
-            var $box = $(event.target).closest('li').find('.editBox');
-            $box.children('input').val($.trim($text.contents().text()));
-            $box.fadeIn(150);
-        });
     },
 
     updateItem: function(event) {

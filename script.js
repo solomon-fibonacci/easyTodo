@@ -32,6 +32,7 @@ var todoApp = {
         this.$forwardButton.on('click', this.goForward.bind(this));
         this.$backButton.on('click', this.goBack.bind(this));
         this.$input.on('keyup', this.addItem.bind(this));
+        this.$input.on('focus', this.render.bind(this));
         this.$addButton.on('click', this.addItem.bind(this));
         this.$listDiv.on('change', '.todoCheckbox', this.tickItem.bind(this));
         this.$listDiv.on('click', '.delButton', this.deleteItem.bind(this));

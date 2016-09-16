@@ -56,6 +56,7 @@ i.fa-chevron-left {
     height: 30px;
     font-size: 1em;
     font-weight: lighter;
+    font-family: 'Dosis', sans-serif;
 }
 
 #listDiv {
@@ -77,11 +78,13 @@ button:focus {
     outline: 0;
 }
 
-button.delButton {
+button.delButton,
+button.editButton {
     background-color: #f5f5f5;
 }
 
-.delButton i {
+.delButton i,
+.editButton i {
     color: #3a3a3a;
 }
 
@@ -113,4 +116,10 @@ div.delDiv {
 
 .editBox {
     display: none;
+}
+
+.editBox input[type="text"] {
+    height: 20px;
+    font-family: 'Dosis', sans-serif;
+    font-size: 1em;
 }

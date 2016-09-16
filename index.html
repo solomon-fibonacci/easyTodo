@@ -33,7 +33,10 @@
                     {{#tasks}}
                     <li data-itemid="{{itemid}}" data-ischecked="{{ischecked}}" data-editmode="0" class="todoLi">
                         <input type="checkbox" name="todoItem" value="" class="todoCheckbox">
-                        <input type="text" class="editBox">
+                        <span class="editBox">
+                            <input type="text">
+                            <button class="updateButton">update</button>
+                        </span>
                         <div class="todoItemText">
                             {{task}}
                         </div>

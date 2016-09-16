@@ -56,14 +56,15 @@ var todoApp = {
             displayDate: this.displayDate,
         };
         var todaysDate = moment().format('dddd, Do MMMM')
-        if (this.displayDate != todaysDate) {
-            this.$input.prop('disabled', true);
-        } else {
-            this.$input.prop('disabled', false);
-        }
         this.$input.val('');
         this.$ul.html(Mustache.render(this.template, data));
         this.$displayDate.html(this.displayDate);
+        if (this.displayDate != todaysDate) {
+            this.$input.prop('disabled', true);
+            this.$ul.children('li').find('.editButton').hide();
+        } else {
+            this.$input.prop('disabled', false);
+        }
         this.$ul.children('li').each(function(index, item) {
             var $item = $(item);
             var $text = $item.children('.todoItemText');
@@ -166,7 +167,7 @@ var todoApp = {
 
     updateItem: function(event) {
         var itemid = $(event.target).closest('li').data('itemid');
-        this.addItem(event,itemid);
+        this.addItem(event, itemid);
     },
 
     goBack: function() {

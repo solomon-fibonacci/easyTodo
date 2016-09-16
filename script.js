@@ -37,6 +37,7 @@ var todoApp = {
         this.$listDiv.on('click', '.delButton', this.deleteItem.bind(this));
         this.$listDiv.on('click', '.editButton', this.editItem.bind(this));
         this.$listDiv.on('click', '.updateButton', this.updateItem.bind(this));
+        this.$listDiv.on('keyup', '.editBox input', this.updateItem.bind(this));
     },
 
     saveList: function() {
@@ -92,26 +93,17 @@ var todoApp = {
             input = $(event.target).closest('button').prev().val() :
             input = $(event.target).val();
         if (event.type == 'click' || $(event.which)[0] == 13) {
-            console.log(input);
-            console.log(taskID);
             if (this.isValid(input) == 'valid') {
-                console.log(input);
                 var id;
                 var newTask;
                 var taskDate = moment().format('DDMMYYYY');
                 if (!taskID) {
-                    id = this.tasks.length + 1;
-                    newTask = { itemid: id, task: this.$input.val(), ischecked: 0, date: taskDate };
-                    console.log(newTask);
+                    newTask = { itemid: this.tasks.length + 1, task: this.$input.val(), ischecked: 0, date: taskDate };
                     this.tasks.push(newTask);
                 } else {
-                    console.log('We made it this far');
-                    id = taskID;
                     $.each(this.tasks, function(index, task) {
-                        console.log(task.itemid);
-                        if (task.itemid == id) {
+                        if (task.itemid == taskID) {
                             task.task = input;
-                            console.log(task.task);
                         }
                     });
                 }
@@ -168,7 +160,6 @@ var todoApp = {
         $text.fadeOut(50, function() {
             var $box = $(event.target).closest('li').find('.editBox');
             $box.children('input').val($.trim($text.contents().text()));
-            console.log($.trim($text.contents().text()));
             $box.fadeIn(150);
         });
     },

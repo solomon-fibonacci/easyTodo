@@ -20,6 +20,7 @@ var todoApp = {
         this.$forwardButton = this.$doc.find('#forward');
         this.$backButton = this.$doc.find('#back');
         this.$displayDate = this.$doc.find('h2');
+        this.$inputForm = this.$doc.find('#inputForm');
         this.$input = this.$doc.find('#inputText');
         this.$errorSpan = this.$doc.find('#errorSpan');
         this.$addButton = this.$doc.find('#addItem');
@@ -31,9 +32,7 @@ var todoApp = {
     bindEvents: function() {
         this.$forwardButton.on('click', this.goForward.bind(this));
         this.$backButton.on('click', this.goBack.bind(this));
-        this.$input.on('keyup', this.addItem.bind(this));
-        this.$input.on('focus', this.render.bind(this));
-        this.$addButton.on('click', this.addItem.bind(this));
+        this.$inputForm.on('submit', this.addItem.bind(this));
         this.$listDiv.on('change', '.todoCheckbox', this.tickItem.bind(this));
         this.$listDiv.on('click', '.delButton', this.deleteItem.bind(this));
         this.$listDiv.on('click', '.editButton', this.renderEditBox.bind(this));
@@ -54,14 +53,13 @@ var todoApp = {
         var data = {
             tasks: filteredTasks,
         };
-        console.log(data);
         return data;
     },
 
     render: function() {
-        var data = this.filterTasks(), todaysDate = moment().format('dddd, Do MMMM');
+        var data = this.filterTasks(),
+            todaysDate = moment().format('dddd, Do MMMM');
         this.$input.val('');
-        console.log(data);
         this.$ul.html(Mustache.render(this.template, data));
         this.$displayDate.html(this.displayDate);
         if (this.displayDate != todaysDate) {
@@ -75,7 +73,8 @@ var todoApp = {
 
     renderCheckboxes: function() {
         this.$ul.children('li').each(function(index, item) {
-            var $item = $(item), $text = $item.children('.todoItemText'),
+            var $item = $(item),
+                $text = $item.children('.todoItemText'),
                 $checkbox = $text.siblings('.todoCheckbox');
             if ($item.data('ischecked')) {
                 $text.addClass('done');
@@ -108,31 +107,25 @@ var todoApp = {
 
     addItem: function(event, taskID) {
         var input;
-        event.type == 'click' ?
-            input = $(event.target).closest('button').prev().val() : //input = event.type == 'click' ? ‘yes’ : ‘no’
-            input = $(event.target).val();
-        if (event.type == 'click' || $(event.which)[0] == 13) { // consider doing on 'keyup, click' or use form tag and use onsubmit and prevent default so it doesnt submit
-            if (this.isValid(input) == 'valid') {
-                var newTask, taskDate = moment().format('DDMMYYYY');
-                if (!taskID) {
-                    newTask = { itemid: this.tasks.length + 1, task: this.$input.val(), ischecked: 0, date: taskDate };
-                    this.tasks.push(newTask);
-                } else {
-                    $.each(this.tasks, function(index, task) { // consider using javascript ".find"
-                        if (task.itemid == taskID) { // consier using the index of the array for id
-                            task.task = input;
-                        }
-                    });
-                }
-                this.render();
-                this.saveList();
+        input = $(event.target).find('#inputText').val();
+        if (this.isValid(input) == 'valid') {
+            var newTask, taskDate = moment().format('DDMMYYYY');
+            if (!taskID) {
+                newTask = { itemid: this.tasks.length + 1, task: this.$input.val(), ischecked: 0, date: taskDate };
+                this.tasks.push(newTask);
             } else {
-                var errorMsg;
-                this.isValid(this.$input.val()) == 'longer' ?
-                    errorMsg = 'Please limit your entry to 140 characters.' :
-                    errorMsg = 'Entry cannot be empty.';
-                this.renderError(errorMsg);
+                $.each(this.tasks, function(index, task) { // consider using javascript ".find"
+                    if (task.itemid == taskID) { // consier using the index of the array for id
+                        task.task = input;
+                    }
+                });
             }
+            this.render();
+            this.saveList();
+        } else {
+            var errorMsg;
+            errorMsg = this.isValid(this.$input.val()) == 'longer' ? 'Please limit your entry to 140 characters.' : 'Entry cannot be empty.';
+            this.renderError(errorMsg);
         }
     },
 

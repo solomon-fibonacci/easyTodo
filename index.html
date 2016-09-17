@@ -35,10 +35,10 @@
                     {{#tasks}}
                     <li data-itemid="{{itemid}}" data-ischecked="{{ischecked}}" data-editmode="0" class="todoLi">
                         <input type="checkbox" name="todoItem" value="" class="todoCheckbox">
-                        <span class="editBox">
+                        <form class="editBox">
                             <input type="text">
-                            <button class="updateButton"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
-                        </span>
+                            <button type="submit" class="updateButton"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
+                        </form>
                         <div class="todoItemText">
                             {{task}}
                         </div>

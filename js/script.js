@@ -36,8 +36,7 @@ var todoApp = {
         this.$listDiv.on('change', '.todoCheckbox', this.tickItem.bind(this));
         this.$listDiv.on('click', '.delButton', this.deleteItem.bind(this));
         this.$listDiv.on('click', '.editButton', this.renderEditBox.bind(this));
-        this.$listDiv.on('click', '.updateButton', this.updateItem.bind(this));
-        this.$listDiv.on('keyup', '.editBox input', this.updateItem.bind(this));
+        this.$listDiv.on('submit', '.editBox', this.updateItem.bind(this));
     },
 
     saveList: function() {
@@ -86,7 +85,8 @@ var todoApp = {
         });
     },
 
-    renderError: function(errorMsg) { // todo: fix the repeating
+    renderError: function(errorType) { // todo: fix the repeating
+        var errorMsg = errorType == 'longer' ? 'Please limit your entry to 140 characters.' : 'Entry cannot be empty.';
         this.$errorSpan.html(errorMsg);
         this.$errorSpan.fadeIn(1000);
         this.$errorSpan.delay(10000).fadeOut(1000);
@@ -101,31 +101,38 @@ var todoApp = {
         $text.fadeOut(50, function() {
             var $box = $(event.target).closest('li').find('.editBox');
             $box.children('input').val($.trim($text.contents().text()));
-            $box.fadeIn(150);
+            $box.addClass('visibleEditBox').fadeIn(150);
         });
     },
 
-    addItem: function(event, taskID) {
-        var input;
-        input = $(event.target).find('#inputText').val();
-        if (this.isValid(input) == 'valid') {
-            var newTask, taskDate = moment().format('DDMMYYYY');
-            if (!taskID) {
-                newTask = { itemid: this.tasks.length + 1, task: this.$input.val(), ischecked: 0, date: taskDate };
-                this.tasks.push(newTask);
-            } else {
-                $.each(this.tasks, function(index, task) { // consider using javascript ".find"
-                    if (task.itemid == taskID) { // consier using the index of the array for id
-                        task.task = input;
-                    }
-                });
-            }
+    addItem: function() {
+        var input = $(event.target).find('#inputText').val();
+        var validationResult = this.isValid(input);
+        if (validationResult === 'valid') {
+            var taskDate = moment().format('DDMMYYYY');
+            var newTask = { itemid: this.tasks.length + 1, task: input, ischecked: 0, date: taskDate };
+            this.tasks.push(newTask);
             this.render();
             this.saveList();
         } else {
-            var errorMsg;
-            errorMsg = this.isValid(this.$input.val()) == 'longer' ? 'Please limit your entry to 140 characters.' : 'Entry cannot be empty.';
-            this.renderError(errorMsg);
+            renderError(validationResult);
+        }
+    },
+
+    updateItem: function(event) {
+        var input = $(event.target).find('input').val();
+        var validationResult = this.isValid(input);
+        if (validationResult === 'valid') {
+            var itemid = $(event.target).closest('li').data('itemid');
+            $.each(this.tasks, function(index, task) { // consider using javascript ".find"
+                if (task.itemid === taskID) { // consier using the index of the array for id
+                    task.task = input;
+                }
+            });
+            this.render();
+            this.saveList();
+        } else {
+            renderError(validationResult);
         }
     },
 
@@ -158,11 +165,6 @@ var todoApp = {
         });
         this.render();
         this.saveList();
-    },
-
-    updateItem: function(event) {
-        var itemid = $(event.target).closest('li').data('itemid');
-        this.addItem(event, itemid);
     },
 
     goBack: function() {

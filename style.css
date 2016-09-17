@@ -123,6 +123,10 @@ div.delDiv {
     display: none;
 }
 
+.visibleEditBox {
+    display: inline-block;
+}
+
 .editBox input[type="text"] {
     height: 20px;
     width: 150px;

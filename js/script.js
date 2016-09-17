@@ -46,17 +46,22 @@ var todoApp = {
         localStorage.setItem('todos', ingoingData);
     },
 
-    render: function() {
+    filterTasks: function() {
         var filterDate = moment(this.displayDate, 'ddd, Do MMMM').format('DDMMYYYY');
         var filteredTasks = this.tasks.filter(function(t) {
-            return t.date == filterDate;
+            return t.date === filterDate;
         })
         var data = {
             tasks: filteredTasks,
-            displayDate: this.displayDate,
         };
-        var todaysDate = moment().format('dddd, Do MMMM')
+        console.log(data);
+        return data;
+    },
+
+    render: function() {
+        var data = this.filterTasks(), todaysDate = moment().format('dddd, Do MMMM');
         this.$input.val('');
+        console.log(data);
         this.$ul.html(Mustache.render(this.template, data));
         this.$displayDate.html(this.displayDate);
         if (this.displayDate != todaysDate) {
@@ -65,29 +70,29 @@ var todoApp = {
         } else {
             this.$input.prop('disabled', false);
         }
+        this.renderCheckboxes();
+    },
+
+    renderCheckboxes: function() {
         this.$ul.children('li').each(function(index, item) {
-            var $item = $(item);
-            var $text = $item.children('.todoItemText');
-            var $editBox = $item.children('.editBox')
-            var $checkbox = $text.siblings('.todoCheckbox');
-
-            $item.data('ischecked') ?
-                $text.addClass('done') :
+            var $item = $(item), $text = $item.children('.todoItemText'),
+                $checkbox = $text.siblings('.todoCheckbox');
+            if ($item.data('ischecked')) {
+                $text.addClass('done');
+                $checkbox[0].setAttribute("checked", "checked");
+            } else {
                 $text.removeClass('done');
-
-            $text.hasClass('done') ?
-                $checkbox[0].setAttribute("checked", "checked") :
                 $checkbox[0].removeAttribute("checked");
+            }
         });
     },
 
     renderError: function(errorMsg) { // todo: fix the repeating
         this.$errorSpan.html(errorMsg);
-        this.$errorSpan.fadeOut(500);
         this.$errorSpan.fadeIn(1000);
         this.$errorSpan.delay(10000).fadeOut(1000);
     },
-    
+
     renderEditBox: function(event) {
         var $items = $(event.target).closest('ul').find('.todoItemText');
         var $boxes = $(event.target).closest('ul').find('.editBox');
@@ -104,24 +109,21 @@ var todoApp = {
     addItem: function(event, taskID) {
         var input;
         event.type == 'click' ?
-            input = $(event.target).closest('button').prev().val() :
+            input = $(event.target).closest('button').prev().val() : //input = event.type == 'click' ? ‘yes’ : ‘no’
             input = $(event.target).val();
-        if (event.type == 'click' || $(event.which)[0] == 13) {
+        if (event.type == 'click' || $(event.which)[0] == 13) { // consider doing on 'keyup, click' or use form tag and use onsubmit and prevent default so it doesnt submit
             if (this.isValid(input) == 'valid') {
-                var id;
-                var newTask;
-                var taskDate = moment().format('DDMMYYYY');
+                var newTask, taskDate = moment().format('DDMMYYYY');
                 if (!taskID) {
                     newTask = { itemid: this.tasks.length + 1, task: this.$input.val(), ischecked: 0, date: taskDate };
                     this.tasks.push(newTask);
                 } else {
-                    $.each(this.tasks, function(index, task) {
-                        if (task.itemid == taskID) {
+                    $.each(this.tasks, function(index, task) { // consider using javascript ".find"
+                        if (task.itemid == taskID) { // consier using the index of the array for id
                             task.task = input;
                         }
                     });
                 }
-
                 this.render();
                 this.saveList();
             } else {
@@ -147,7 +149,7 @@ var todoApp = {
     tickItem: function(event) {
         var $tickedItem = $(event.target).siblings('.todoItemText');
         var tickedItemID = $tickedItem.closest('li').data('itemid');
-        $.each(this.tasks, function(index, task) {
+        $.each(this.tasks, function(index, task) { //try .find
             if (task.itemid === tickedItemID) {
                 task.ischecked = 1 - task.ischecked; //toggle between 0 and 1
             }
@@ -182,3 +184,8 @@ var todoApp = {
 };
 
 todoApp.init();
+
+
+// use ternery less often
+// use strict comparison
+// break addItem function

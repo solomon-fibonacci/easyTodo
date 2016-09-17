@@ -33,6 +33,7 @@ var todoApp = {
         this.$forwardButton.on('click', this.goForward.bind(this));
         this.$backButton.on('click', this.goBack.bind(this));
         this.$inputForm.on('submit', this.addItem.bind(this));
+        this.$input.on('focus', this.render.bind(this));
         this.$listDiv.on('change', '.todoCheckbox', this.tickItem.bind(this));
         this.$listDiv.on('click', '.delButton', this.deleteItem.bind(this));
         this.$listDiv.on('click', '.editButton', this.renderEditBox.bind(this));
@@ -86,8 +87,11 @@ var todoApp = {
     },
 
     renderError: function(errorType) { // todo: fix the repeating
+        console.log('Hey there!');
         var errorMsg = errorType == 'longer' ? 'Please limit your entry to 140 characters.' : 'Entry cannot be empty.';
+        console.log(errorMsg);
         this.$errorSpan.html(errorMsg);
+        console.log(this.$errorSpan);
         this.$errorSpan.fadeIn(1000);
         this.$errorSpan.delay(10000).fadeOut(1000);
     },
@@ -105,7 +109,8 @@ var todoApp = {
         });
     },
 
-    addItem: function() {
+    addItem: function(event) {
+        event.preventDefault();
         var input = $(event.target).find('#inputText').val();
         var validationResult = this.isValid(input);
         if (validationResult === 'valid') {
@@ -115,24 +120,25 @@ var todoApp = {
             this.render();
             this.saveList();
         } else {
-            renderError(validationResult);
+            this.renderError(validationResult);
         }
     },
 
     updateItem: function(event) {
+        event.preventDefault();
         var input = $(event.target).find('input').val();
         var validationResult = this.isValid(input);
         if (validationResult === 'valid') {
             var itemid = $(event.target).closest('li').data('itemid');
             $.each(this.tasks, function(index, task) { // consider using javascript ".find"
-                if (task.itemid === taskID) { // consier using the index of the array for id
+                if (task.itemid === itemid) { // consier using the index of the array for id
                     task.task = input;
                 }
             });
             this.render();
             this.saveList();
         } else {
-            renderError(validationResult);
+            this.renderError(validationResult);
         }
     },
 

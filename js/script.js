@@ -86,7 +86,7 @@ var todoApp = {
         });
     },
 
-    renderError: function(errorType) { // todo: fix the repeating
+    renderError: function(errorType) {
         console.log('Hey there!');
         var errorMsg = errorType == 'longer' ? 'Please limit your entry to 140 characters.' : 'Entry cannot be empty.';
         console.log(errorMsg);
@@ -157,7 +157,7 @@ var todoApp = {
         var tickedItemID = $tickedItem.closest('li').data('itemid');
         $.each(this.tasks, function(index, task) { //try .find
             if (task.itemid === tickedItemID) {
-                task.ischecked = 1 - task.ischecked; //toggle between 0 and 1
+                task.ischecked = 1 - task.ischecked;
             }
         });
         this.render();
@@ -185,8 +185,3 @@ var todoApp = {
 };
 
 todoApp.init();
-
-
-// use ternery less often
-// use strict comparison
-// break addItem function

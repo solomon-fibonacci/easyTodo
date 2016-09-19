@@ -114,7 +114,7 @@ var todoApp = {
         var input = $(event.target).find('#inputText').val();
         var validationResult = this.isValid(input);
         if (validationResult === 'valid') {
-            var taskDate = moment().format('DDMMYYYY');
+            var taskDate = moment(this.displayDate, 'dddd, Do MMMM').format('DDMMYYYY');
             var newTask = { itemid: this.tasks.length + 1, task: input, ischecked: 0, date: taskDate };
             this.tasks.push(newTask);
             this.render();

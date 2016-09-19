@@ -49,7 +49,7 @@ var todoApp = {
         var filterDate = moment(this.displayDate, 'ddd, Do MMMM').format('DDMMYYYY');
         var filteredTasks = this.tasks.filter(function(t) {
             return t.date === filterDate;
-        })
+        });
         var data = {
             tasks: filteredTasks,
         };
@@ -58,11 +58,11 @@ var todoApp = {
 
     render: function() {
         var data = this.filterTasks(),
-            todaysDate = moment().format('dddd, Do MMMM');
+            todaysDate = moment();
         this.$input.val('');
         this.$ul.html(Mustache.render(this.template, data));
         this.$displayDate.html(this.displayDate);
-        if (this.displayDate != todaysDate) {
+        if (moment(this.displayDate, 'dddd, Do MMMM').isBefore(todaysDate, 'day')) {
             this.$input.prop('disabled', true);
             this.$ul.children('li').find('.editButton').hide();
         } else {

@@ -1,6 +1,6 @@
-require('jquery');
-require('moment');
-require('mustache');
+var $ = require('jquery');
+var moment = require('moment');
+var Mustache = require('mustache');
 
 var todoApp = {
     init: function() {

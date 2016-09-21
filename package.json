@@ -1,0 +1,19 @@
+{
+  "name": "easy-todo",
+  "version": "1.0.0",
+  "description": "Simple ToDo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solomon-fibonacci/easyTodo.git"
+  },
+  "author": "Solomon Omojola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/solomon-fibonacci/easyTodo/issues"
+  },
+  "homepage": "https://github.com/solomon-fibonacci/easyTodo#readme"
+}

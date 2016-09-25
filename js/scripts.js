@@ -136,7 +136,7 @@ var todoApp = {
         if (validationResult === 'valid') {
             var itemid = $(event.target).closest('li').data('itemid');
             $.each(this.tasks, function(index, task) { // consider using javascript ".find"
-                if (task.itemid === itemid) { // consier using the index of the array for id
+                if (task.itemid === itemid) { // consider using the index of the array for id
                     task.task = input;
                 }
             });

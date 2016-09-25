@@ -170,7 +170,7 @@ var todoApp = {
     },
 
     deleteItem: function(event) {
-        var deletedItemID = $(event.target).closest('li').data('itemid'); //why did i have to put $ before "event would work?"
+        var deletedItemID = $(event.target).closest('li').data('itemid');
         this.tasks = this.tasks.filter(function(obj) {
             return obj.itemid != deletedItemID;
         });

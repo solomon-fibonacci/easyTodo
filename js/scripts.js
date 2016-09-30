@@ -187,6 +187,10 @@ var todoApp = {
         this.displayDate = moment(this.displayDate, 'dddd, Do MMMM').add(1, 'days').format('dddd, Do MMMM');
         this.render();
     },
+
+    carroverTasks: function() {
+        
+    }
 };
 
 todoApp.init();

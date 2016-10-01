@@ -189,8 +189,12 @@ var todoApp = {
     },
 
     carroverTasks: function() {
-        
-    }
+
+    },
+
+    writeJounrnal: function() {
+
+    },
 };
 
 todoApp.init();

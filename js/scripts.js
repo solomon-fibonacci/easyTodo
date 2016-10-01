@@ -195,6 +195,10 @@ var todoApp = {
     writeJounrnal: function() {
 
     },
+
+    editJournal: function() {
+
+    },
 };
 
 todoApp.init();

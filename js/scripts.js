@@ -190,7 +190,6 @@ var todoApp = {
 
     carroverTasks: function() {
         //http://stackoverflow.com/questions/4455282/call-a-javascript-function-at-a-specific-time-of-day
-
     },
 
     writeJounrnal: function() {

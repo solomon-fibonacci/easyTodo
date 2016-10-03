@@ -65,7 +65,6 @@ var todoApp = {
             todaysDate = moment();
         this.$input.val('');
         this.$ul.html(Mustache.render(this.template, data));
-        console.log(Mustache.render(this.template, data));
         this.$displayDate.html(this.displayDate);
         if (moment(this.displayDate, 'dddd, Do MMMM').isBefore(todaysDate, 'day')) {
             this.$input.prop('disabled', true);
@@ -189,7 +188,6 @@ var todoApp = {
     },
 
     carroverTasks: function() {
-        //http://stackoverflow.com/questions/4455282/call-a-javascript-function-at-a-specific-time-of-day
     },
 
     writeJounrnal: function() {

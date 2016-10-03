@@ -36,11 +36,10 @@ h2 {
 
 button#back,
 button#forward {
-  background-color: #2a2a2a;
+  background-color: rgba(0,0,0,0);
   height: 36px;
   width: 36px;
   position: relative;
-  /*bottom: 0;*/
   top: 5px;
 }
 
@@ -62,7 +61,6 @@ button#addItem {
     background-color: #2a2a2a;
     margin: 0;
     padding: 0;
-    /*top: 2px;*/
 }
 
 #inputDiv {
@@ -96,7 +94,7 @@ button#addItem {
 button {
   border: none;
   border-radius: 3px;
-  color: #f9f9f9;
+  /*color: #f9f9f9;*/
   padding: 1px 3px;
   vertical-align: bottom;
   cursor: pointer;

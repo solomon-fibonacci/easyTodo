@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Dosis:300" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://use.fontawesome.com/8d65d92455.js"></script>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>To-do List</title>
 </head>
@@ -21,7 +20,7 @@
             <div id="inputDiv">
                 <form id="inputForm">
                     <input type="text" id="inputText">
-                    <button type="submit" id="addItem"><i class="fa fa-plus-square fa-3x" aria-hidden="true"></i></button>
+                    <button type="submit" id="addItem"></button>
                     <div id="inputError"><span id="errorSpan"></span></div>
                 </form>
             </div>
@@ -34,14 +33,14 @@
                         <input type="checkbox" name="todoItem" value="" class="todoCheckbox">
                         <form class="editBox">
                             <input type="text">
-                            <button type="submit" class="updateButton"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
+                            <button type="submit" class="updateButton"></button>
                         </form>
                         <div class="todoItemText">
                             {{task}}
                         </div>
                         <div class="delDiv">
-                            <button class="editButton"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></button>
-                            <button class="delButton"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>
+                            <button class="editButton"></button>
+                            <button class="delButton"></button>
                         </div>
                     </li>
                     {{/tasks}}

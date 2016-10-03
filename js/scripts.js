@@ -16,7 +16,7 @@ var todoApp = {
         } else {
             this.tasks = [];
         }
-        this.displayDate = moment().format("dddd, Do MMMM");
+        this.displayDate = moment().format("ddd, Do MMM");
     },
 
     cacheDom: function() {
@@ -50,7 +50,7 @@ var todoApp = {
     },
 
     filterTasks: function() {
-        var filterDate = moment(this.displayDate, 'ddd, Do MMMM').format('DDMMYYYY');
+        var filterDate = moment(this.displayDate, 'ddd, Do MMM').format('DDMMYYYY');
         var filteredTasks = this.tasks.filter(function(t) {
             return (t.date <= filterDate) && (!t.ischecked);
         });
@@ -66,7 +66,7 @@ var todoApp = {
         this.$input.val('');
         this.$ul.html(Mustache.render(this.template, data));
         this.$displayDate.html(this.displayDate);
-        if (moment(this.displayDate, 'dddd, Do MMMM').isBefore(todaysDate, 'day')) {
+        if (moment(this.displayDate, 'ddd, Do MMM').isBefore(todaysDate, 'day')) {
             this.$input.prop('disabled', true);
             this.$ul.children('li').find('.editButton').hide();
         } else {
@@ -118,7 +118,7 @@ var todoApp = {
         var input = $(event.target).find('#inputText').val();
         var validationResult = this.isValid(input);
         if (validationResult === 'valid') {
-            var taskDate = moment(this.displayDate, 'dddd, Do MMMM').format('DDMMYYYY');
+            var taskDate = moment(this.displayDate, 'ddd, Do MMM').format('DDMMYYYY');
             var newTask = { itemid: this.tasks.length + 1, task: input, ischecked: 0, date: taskDate };
             this.tasks.push(newTask);
             this.render();
@@ -178,12 +178,12 @@ var todoApp = {
     },
 
     goBack: function() {
-        this.displayDate = moment(this.displayDate, 'dddd, Do MMMM').subtract(1, 'days').format('dddd, Do MMMM');
+        this.displayDate = moment(this.displayDate, 'ddd, Do MMM').subtract(1, 'days').format('ddd, Do MMM');
         this.render();
     },
 
     goForward: function() {
-        this.displayDate = moment(this.displayDate, 'dddd, Do MMMM').add(1, 'days').format('dddd, Do MMMM');
+        this.displayDate = moment(this.displayDate, 'ddd, Do MMM').add(1, 'days').format('ddd, Do MMM');
         this.render();
     },
 

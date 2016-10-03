@@ -35,7 +35,7 @@ button#forward {
   height: 36px;
   width: 36px;
   position: relative;
-  bottom: 0;
+  /*bottom: 0;*/
   top: 5px;
 }
 
@@ -45,6 +45,19 @@ button#back {
 
 button#forward {
   background-image: url("forward.svg");
+}
+
+button#addItem {
+    background-image: url("add.svg");
+    background-repeat: no-repeat;
+    height: 36px;
+    width: 36px;
+    position: relative;
+    bottom: 0;
+    background-color: #2a2a2a;
+    margin: 0;
+    padding: 0;
+    /*top: 2px;*/
 }
 
 #inputDiv {
@@ -62,7 +75,7 @@ button#forward {
   display: none;
 }
 
-#inputText {
+#inputText{
   width: 280px;
   height: 30px;
   font-size: 1em;

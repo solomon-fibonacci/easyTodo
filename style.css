@@ -31,6 +31,7 @@ h2 {
 
 button#back,
 button#forward {
+  background-color: #2a2a2a;
   height: 36px;
   width: 36px;
   position: relative;
@@ -75,7 +76,6 @@ button#forward {
 }
 
 button {
-  background-color: #2a2a2a;
   border: none;
   border-radius: 3px;
   color: #f9f9f9;
@@ -88,19 +88,20 @@ button:focus {
   outline: 0;
 }
 
-button.delButton,
-button.editButton {
-  background-color: #f5f5f5;
+button.delButton, button.editButton {
+    background-color: #f5f5f5;
 }
 
-
-/*.delButton i,
-.editButton i {
-    color: #3a3a3a;
-}*/
-
-.delButton {
+button.delButton {
   background-image: url("del.svg");
+  height: 24px;
+  width: 24px;
+}
+
+button.editButton {
+  background-image: url("edit.svg");
+  width: 24px;
+  height: 24px;
 }
 
 #listDiv ul {

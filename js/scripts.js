@@ -52,7 +52,7 @@ var todoApp = {
     filterTasks: function() {
         var filterDate = moment(this.displayDate, 'ddd, Do MMMM').format('DDMMYYYY');
         var filteredTasks = this.tasks.filter(function(t) {
-            return t.date === filterDate;
+            return (t.date <= filterDate) && (!t.ischecked);
         });
         var data = {
             tasks: filteredTasks,

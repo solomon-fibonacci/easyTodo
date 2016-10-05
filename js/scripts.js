@@ -193,19 +193,19 @@ var todoApp = {
     this.render();
   },
 
-  carroverTasks: function() {},
 
-  writeJounrnal: function() {
+//ToDo before the world ends
+  // writeJounrnal: function() {
 
-  },
+  // },
 
-  editJournal: function() {
+  // editJournal: function() {
 
-  },
+  // },
 
-  saveJournal: function() {
+  // saveJournal: function() {
 
-  },
+  // },
 
 };
 

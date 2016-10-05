@@ -104,9 +104,16 @@ button:focus {
   outline: 0;
 }
 
+input{
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
 input:focus {
     outline: 0;
-    border-color: rgba(69, 132, 139, 0.3);
+    padding-left: 8px;
+    padding-right: 8px;
+    /*border-color: rgba(69, 132, 139, 0.3);*/
 }
 
 button.delButton, button.editButton {

@@ -94,7 +94,6 @@ button#addItem {
 button {
   border: none;
   border-radius: 3px;
-  /*color: #f9f9f9;*/
   padding: 1px 3px;
   vertical-align: bottom;
   cursor: pointer;
@@ -113,7 +112,6 @@ input:focus {
     outline: 0;
     padding-left: 8px;
     padding-right: 8px;
-    /*border-color: rgba(69, 132, 139, 0.3);*/
 }
 
 button.delButton, button.editButton {

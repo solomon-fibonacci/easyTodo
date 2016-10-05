@@ -50,16 +50,37 @@ var todoApp = {
   },
 
   filterTasks: function() {
+    var today = moment();
+    console.log(typeof today);
+    var filterDate2 = moment(this.displayDate, 'ddd, Do MMM');
     var filterDate = moment(this.displayDate, 'ddd, Do MMM').format('DDMMYYYY');
     var filteredTasks = this.tasks.filter(function(t) {
-        console.log(t);
-        console.log("(t.date === filterDate) && (t.ischecked) ==> ", ((t.date === filterDate) && (t.ischecked)));
-        console.log("filterDate === moment().format('DDMMYYYY') ==> ", filterDate === moment().format('DDMMYYYY'));
-        console.log("(((!t.ischecked) && (moment().isSameOrAfter(moment(t.date, 'DDMMYYYY')))) ==> ", ((!t.ischecked) && (moment().isSameOrAfter(moment(t.date, 'DDMMYYYY')))));
+      var taskDate = moment(t.date, 'DDMMYYYY');
+      console.log("////////////////////////////////////////////////////////////////////////////////////////////");
+      console.log(t);
+      console.log("////////////////////////////////////////////////////////////////////////////////////////////");
+      console.log("today ===> ", today);
+      console.log("taskDate ===> ", taskDate);
+      console.log("filterDate2 ===> ", filterDate2);
+      console.log("filterDate2.isSame(today, 'day') ===> ", filterDate2.isSame(today, 'day'));
+      console.log("today.isSameOrAfter(taskDate) ===> ", today.isSameOrAfter(taskDate));
+      console.log('(taskDate.isSame(filterDate2) && t.ischecked) ===> ', (taskDate.isSame(filterDate2, 'day') && t.ischecked)); //||
+      console.log('((filterDate2.isSame(today)) && ((!t.ischecked) && (today.isSameOrAfter(taskDate)))) ===> ', ((filterDate2.isSame(today, 'day')) && ((!t.ischecked) && (today.isSameOrAfter(taskDate, 'day'))))); //||
+      console.log('((taskDate.isSame(filterDate2)) && (filterDate2.isAfter(today))) ===> ', ((taskDate.isSame(filterDate2, 'day')) && (filterDate2.isAfter(today, 'day'))));
+      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log("moment().format('DDMMYYYY') ===> ", moment().format('DDMMYYYY'));
+      console.log("moment(t.date, 'DDMMYYYY') ===> ", moment(t.date, 'DDMMYYYY'));
+      console.log("filterDate ===> ", filterDate);
+      console.log("filterDate === moment().format('DDMMYYYY') ===> ", filterDate === moment().format('DDMMYYYY'));
+      console.log("(moment().isSameOrAfter(moment(t.date, 'DDMMYYYY'))) ===> ", (moment().isSameOrAfter(moment(t.date, 'DDMMYYYY')))); // ||
+      console.log('(t.date === filterDate) && (t.ischecked) ===> ', (t.date === filterDate) && (t.ischecked)); //||
+      console.log("(filterDate === moment().format('DDMMYYYY') && ((!t.ischecked) && (moment().isSameOrAfter(moment(t.date, 'DDMMYYYY'))))) ===> ", (filterDate === moment().format('DDMMYYYY') && ((!t.ischecked) && (moment().isSameOrAfter(moment(t.date, 'DDMMYYYY')))))); //||
+      console.log("((t.date === filterDate) && moment(filterDate, 'DDMMYYYY').isAfter(moment())) ===> ", ((t.date === filterDate) && moment(filterDate, 'DDMMYYYY').isAfter(moment())));
+      console.log("=============================================================================================");
       return (
-        ((t.date === filterDate) && (t.ischecked)) ||
-        (filterDate === moment().format('DDMMYYYY') && ((!t.ischecked) && (moment().isSameOrAfter(moment(t.date, 'DDMMYYYY'))))) ||
-        ((t.date === filterDate) && moment(filterDate, 'DDMMYYYY').isAfter(moment()))
+        taskDate.isSame(filterDate2, 'day') && t.ischecked ||
+        filterDate2.isSame(today, 'day') && !t.ischecked && today.isSameOrAfter(taskDate, 'day') ||
+        t.date === filterDate && moment(filterDate, 'DDMMYYYY').isAfter(moment())
       );
     });
     var data = {

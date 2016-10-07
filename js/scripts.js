@@ -193,7 +193,6 @@ var todoApp = {
     this.render();
   },
 
-
 //ToDo before the world ends
   // writeJounrnal: function() {
   // },

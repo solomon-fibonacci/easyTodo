@@ -196,7 +196,6 @@ var todoApp = {
 //ToDo before the world ends
   // writeJounrnal: function() {
   // },
-
   // editJournal: function() {
   // },
 

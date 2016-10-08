@@ -198,7 +198,6 @@ var todoApp = {
   // },
   // editJournal: function() {
   // },
-
   // saveJournal: function() {
   // },
 

@@ -199,8 +199,7 @@ var todoApp = {
   // editJournal: function() {
   // },
   // saveJournal: function() {
-  // },
-
+  // },s
 };
 
 todoApp.init();

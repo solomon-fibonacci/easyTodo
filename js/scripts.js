@@ -66,8 +66,12 @@ var todoApp = {
     return data;
   },
 
+  orderTasks: function(tasks) {
+    return tasks;
+  },
+
   render: function() {
-    var data = this.filterTasks(),
+    var data = this.orderTasks(this.filterTasks()),
       todaysDate = moment();
     this.$input.val('');
     this.$ul.html(Mustache.render(this.todoTemplate, data));

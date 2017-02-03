@@ -118,7 +118,7 @@ var todoApp = {
       $box.addClass('visibleEditBox').fadeIn(150);
     });
   },
-
+  
   addItem: function(event) {
     event.preventDefault();
     var input = $(event.target).find('#inputText').val();

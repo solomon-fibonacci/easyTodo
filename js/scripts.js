@@ -30,7 +30,7 @@ var todoApp = {
     this.$addButton = this.$doc.find('#addItem');
     this.$listDiv = this.$doc.find('#listDiv');
     this.$ul = this.$doc.find('ul');
-    this.template = this.$doc.find('#todoTemplate').html();
+    this.todoTemplate = this.$doc.find('#todoTemplate').html();
   },
 
   bindEvents: function() {
@@ -70,7 +70,7 @@ var todoApp = {
     var data = this.filterTasks(),
       todaysDate = moment();
     this.$input.val('');
-    this.$ul.html(Mustache.render(this.template, data));
+    this.$ul.html(Mustache.render(this.todoTemplate, data));
     this.$displayDate.html(this.displayDate);
     if (moment(this.displayDate, 'ddd, Do MMM').isBefore(todaysDate, 'day')) {
       this.$input.prop('disabled', true);

@@ -67,11 +67,17 @@ var todoApp = {
   },
 
   orderTasks: function(tasks) {
-    return tasks;
+    var uncheckedPart = tasks.filter(function(t) {
+      return !t.ischecked;
+    });
+    var checkedPart = tasks.filter(function(t){
+      return t.ischecked;
+    });
+    return uncheckedPart.concat(checkedPart);
   },
 
   render: function() {
-    var data = this.orderTasks(this.filterTasks()),
+    var data = this.orderTasks(this.filterTasks().tasks),
       todaysDate = moment();
     this.$input.val('');
     this.$ul.html(Mustache.render(this.todoTemplate, data));
